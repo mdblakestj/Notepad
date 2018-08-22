@@ -4,12 +4,17 @@ console.log('Starting Notes ')
 
 
 var addNote = function(title, body) {
-  var originalNote = {
-    title: title,
-    body : body
+  var notes = [];
+  var note = {
+    title,
+    body
   };
-  originalNoteString = JSON.stringify(originalNote);
-  fs.writeFileSync(`${title}.json`, originalNoteString);
+  
+
+  var notesString = fs.readFileSync('notes-date.json')
+  notes = JSON.parse(notesString);
+  notes.push(note)
+  fs.writeFileSync(`notes-date.json`, JSON.stringify(notes));
 
 };
 
