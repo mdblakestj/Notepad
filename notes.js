@@ -1,6 +1,5 @@
 const fs = require("fs");
 
-console.log('Starting Notes ')
 
 var fetchNotes = () => {
   try {
@@ -12,6 +11,13 @@ var fetchNotes = () => {
   }
 
 };
+
+var logNote = (note) => {
+
+  console.log("--")
+  console.log("Title: " + note.title);
+  console.log("Body: " + note.body);
+}
 
 var saveNotes = (notes) => {
   fs.writeFileSync(`notes-date.json`, JSON.stringify(notes));
@@ -36,15 +42,15 @@ var addNote = function(title, body) {
 };
 
 var getAll = function(){
-  console.log('listing notes');
+  debugger;
+  return fetchNotes();
+
 };
 
 var getNote = function(title) {
-  var filename = `${title}.json`;
-  console.log(filename);
-  var noteString = fs.readFileSync(filename)
-  var note = JSON.parse(noteString);
-  console.log(note.body);
+  var notes = fetchNotes();
+  var filteredNotes = notes.filter((note) => note.title === title);
+  return filteredNotes[0];
 
 }
 
@@ -63,5 +69,6 @@ module.exports = {
   addNote,
   getAll,
   getNote,
-  removeNote
+  removeNote,
+  logNote
 };
